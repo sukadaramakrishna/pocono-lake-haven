@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pocono Lake Haven — Lakeside Escape in the Poconos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --pine:       #2D4A3E;
+      --pine-dark:  #1A2C25;
+      --pine-light: #3D6B5A;
+      --gold:       #C4902A;
+      --gold-light: #E8B84B;
+      --lake:       #4A7C99;
+      --cream:      #FAF8F3;
+      --warm-white: #F5F0E8;
+      --text-dark:  #1A1A1A;
+      --text-muted: #6B6B6B;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 1.6rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s, padding 0.4s, box-shadow 0.4s;
+    }
+
+    nav.scrolled {
+      background: rgba(26, 44, 37, 0.97);
+      backdrop-filter: blur(12px);
+      padding: 1rem 3rem;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.3);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: #FFD966;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: #FFD966; font-weight: 700; }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    .nav-cta {
+      background: var(--gold) !important;
+      color: #FFD966 !important;
+      padding: 0.55rem 1.3rem;
+      border-radius: 2px;
+      transition: background 0.25s !important, color 0.25s !important;
+    }
+    .nav-cta:hover {
+      background: var(--gold-light) !important;
+      color: var(--pine-dark) !important;
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      height: 100vh;
+      min-height: 680px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('IMG_8207.jpeg');
+      background-size: cover;
+      background-position: center 40%;
+      transform: scale(1.06);
+      will-change: transform;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(26,44,37,0.35) 0%,
+        rgba(26,44,37,0.55) 55%,
+        rgba(15,26,20,0.8)  100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      color: #fff;
+      padding: 0 2rem;
+      max-width: 920px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7.5vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1.08;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.5s forwards;
+    }
+    .hero-title em { font-style: italic; color: #FFD966; }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 300;
+      line-height: 1.75;
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.7s forwards;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.9s forwards;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #FFD966;
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      display: inline-block;
+      transition: background 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      color: var(--pine-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(196,144,42,0.45);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      padding: 1rem 2.5rem;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1.5px solid rgba(255,255,255,0.5);
+      border-radius: 2px;
+      display: inline-block;
+      transition: border-color 0.25s, background 0.25s, transform 0.25s;
+    }
+    .btn-outline:hover {
+      border-color: #fff;
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      animation: fadeIn 1s ease 1.4s both;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 38px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.55), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      background: var(--pine-dark);
+      padding: 1.6rem 3rem;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+      color: #fff;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      color: var(--gold-light);
+      display: block;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-top: 0.3rem;
+    }
+
+    /* ===== SHARED SECTION STYLES ===== */
+    section { padding: 6rem 2rem; }
+
+    .inner { max-width: 1160px; margin: 0 auto; }
+
+    .eyebrow {
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.9rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.8vw, 3rem);
+      font-weight: 600;
+      color: var(--pine-dark);
+      line-height: 1.2;
+      margin-bottom: 1.1rem;
+    }
+
+    .divider {
+      width: 52px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 1.4rem;
+    }
+
+    .body-text {
+      font-size: 1.03rem;
+      line-height: 1.82;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    /* ===== FADE-IN ANIMATION ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--cream); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-img-wrap { position: relative; }
+
+    .about-img-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+    }
+
+    .about-img-accent {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      width: 58%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border: 6px solid var(--cream);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.18);
+    }
+
+    .about-badge {
+      position: absolute;
+      top: 2rem;
+      left: -2rem;
+      background: var(--gold);
+      color: #fff;
+      padding: 1.4rem 1rem;
+      text-align: center;
+      width: 106px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+    }
+    .badge-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      display: block;
+      line-height: 1;
+    }
+    .badge-text {
+      font-size: 0.63rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.35rem;
+      opacity: 0.92;
+    }
+
+    /* ===== HIGHLIGHTS ===== */
+    #highlights { background: #fff; }
+
+    .highlights-hdr { text-align: center; margin-bottom: 3.5rem; }
+    .highlights-hdr .divider { margin: 0 auto 1.4rem; }
+
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+
+    .hl-card {
+      background: var(--cream);
+      padding: 2.4rem;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .hl-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+
+    .hl-icon {
+      width: 54px;
+      height: 54px;
+      background: var(--pine-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hl-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--pine-dark);
+      margin-bottom: 0.7rem;
+    }
+
+    .hl-text {
+      font-size: 0.93rem;
+      line-height: 1.72;
+      color: var(--text-muted);
+    }
+
+    /* ===== AMENITIES ===== */
+    #amenities { background: var(--pine-dark); }
+    #amenities .eyebrow    { color: var(--gold-light); }
+    #amenities .section-title { color: #fff; }
+    #amenities .body-text  { color: rgba(255,255,255,0.62); }
+
+    .amenities-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.45fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .amenities-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+
+    .amenities-content { padding-top: 1rem; }
+
+    .am-categories { display: flex; flex-direction: column; gap: 2.2rem; margin-top: 2.4rem; }
+
+    .am-cat h3 {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid rgba(196,144,42,0.22);
+    }
+
+    .am-items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem 1.2rem;
+    }
+
+    .am-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: rgba(255,255,255,0.78);
+      font-size: 0.88rem;
+    }
+    .am-item::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ===== GALLERY ===== */
+    #gallery { background: var(--warm-white); }
+
+    .gallery-hdr { text-align: center; margin-bottom: 2.8rem; }
+    .gallery-hdr .divider { margin: 0 auto 1.4rem; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 8px;
+    }
+
+    .g-item {
+      overflow: hidden;
+      cursor: zoom-in;
+      position: relative;
+    }
+    .g-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(26,44,37,0);
+      transition: background 0.3s;
+    }
+    .g-item:hover::after { background: rgba(26,44,37,0.25); }
+
+    .g-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .g-item:hover img { transform: scale(1.06); }
+
+    .g-item:nth-child(1) { grid-column: span 7; height: 460px; }
+    .g-item:nth-child(2) { grid-column: span 5; height: 223px; }
+    .g-item:nth-child(3) { grid-column: span 5; height: 229px; }
+    .g-item:nth-child(4) { grid-column: span 4; height: 250px; }
+    .g-item:nth-child(5) { grid-column: span 4; height: 250px; }
+    .g-item:nth-child(6) { grid-column: span 4; height: 250px; }
+
+    /* ===== BOOKING CTA ===== */
+    #booking {
+      position: relative;
+      background: linear-gradient(135deg, var(--pine) 0%, var(--pine-dark) 100%);
+      padding: 8rem 2rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    #booking::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=80') center/cover;
+      opacity: 0.1;
+    }
+
+    .booking-inner {
+      position: relative;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .booking-eyebrow {
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1.4rem;
+    }
+
+    .booking-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+    .booking-title em { font-style: italic; color: var(--gold-light); }
+
+    .booking-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.68);
+      margin-bottom: 2.4rem;
+    }
+
+    .booking-btn {
+      background: var(--gold);
+      color: #FFD966;
+      padding: 1.1rem 3rem;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      display: inline-block;
+      box-shadow: 0 10px 30px rgba(196,144,42,0.3);
+      transition: background 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .booking-btn:hover {
+      background: var(--gold-light);
+      color: var(--pine-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(196,144,42,0.5);
+    }
+
+    .airbnb-note {
+      margin-top: 1.4rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.42);
+      letter-spacing: 0.04em;
+    }
+    .airbnb-note span { color: #FF5A5F; font-weight: 600; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0C1610;
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .footer-logo span { color: var(--gold-light); }
+
+    .footer-tagline {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 0.1em;
+      margin-bottom: 2rem;
+    }
+
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .footer-nav a {
+      color: rgba(255,255,255,0.42);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--gold-light); }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.22);
+    }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.94);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      box-shadow: 0 0 60px rgba(0,0,0,0.6);
+    }
+    .lb-close {
+      position: absolute;
+      top: 1.4rem;
+      right: 2rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 2.2rem;
+      line-height: 1;
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: color 0.2s;
+    }
+    .lb-close:hover { color: #fff; }
+
+    /* ===== KEYFRAMES ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.55; }
+      50%       { opacity: 1; }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      nav { padding: 1.25rem 1.5rem; }
+      nav.scrolled { padding: 0.85rem 1.5rem; }
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-img-accent { display: none; }
+      .about-badge { left: 1rem; }
+      .highlights-grid { grid-template-columns: repeat(2, 1fr); }
+      .amenities-layout { grid-template-columns: 1fr; }
+      .amenities-img { aspect-ratio: 16/9; }
+      .g-item:nth-child(1) { grid-column: span 12; height: 300px; }
+      .g-item:nth-child(2) { grid-column: span 6; height: 180px; }
+      .g-item:nth-child(3) { grid-column: span 6; height: 180px; }
+      .g-item:nth-child(4) { grid-column: span 4; height: 160px; }
+      .g-item:nth-child(5) { grid-column: span 4; height: 160px; }
+      .g-item:nth-child(6) { grid-column: span 4; height: 160px; }
+      .stats-bar { gap: 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 4rem 1.25rem; }
+      .highlights-grid { grid-template-columns: 1fr; }
+      .am-items { grid-template-columns: 1fr; }
+      .g-item:nth-child(2), .g-item:nth-child(3) { grid-column: span 12; height: 200px; }
+      .g-item:nth-child(4), .g-item:nth-child(5) { grid-column: span 6; }
+      .g-item:nth-child(6) { grid-column: span 12; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">Pocono <span>Lake Haven</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#highlights">Highlights</a></li>
+      <li><a href="#amenities">Amenities</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="https://www.airbnb.com/rooms/1581830679759519822" class="nav-cta">Book Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <section id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Pocono Mountains, Pennsylvania</p>
+      <h1 class="hero-title">Pocono<br><em>Lake Haven</em></h1>
+      <p class="hero-subtitle">Your private lakeside retreat. Drift into stillness — reawaken to the sound of water and pine.</p>
+      <div class="hero-btns">
+        <a href="https://www.airbnb.com/rooms/1581830679759519822" class="btn-primary">Book Your Stay</a>
+        <a href="#about" class="btn-outline">Explore the Property</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ STATS BAR ═══════════════════ -->
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num">4</span><span class="stat-label">Bedrooms</span></div>
+    <div class="stat"><span class="stat-num">3</span><span class="stat-label">Bathrooms</span></div>
+    <div class="stat"><span class="stat-num">10</span><span class="stat-label">Guests</span></div>
+    <div class="stat"><span class="stat-num">★ 4.9</span><span class="stat-label">Rating</span></div>
+    <div class="stat"><span class="stat-num">Lake</span><span class="stat-label">Front Access</span></div>
+  </div>
+
+  <!-- ═══════════════════ ABOUT ═══════════════════ -->
+  <section id="about">
+    <div class="inner">
+      <div class="about-grid">
+
+        <div class="about-img-wrap fade-in">
+          <img class="about-img-main"
+               src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80"
+               alt="Pocono Lake Haven exterior" loading="lazy">
+          <img class="about-img-accent"
+               src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=600&q=80"
+               alt="Peaceful lake view" loading="lazy">
+          <div class="about-badge">
+            <span class="badge-num">100%</span>
+            <span class="badge-text">Lakefront</span>
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <p class="eyebrow">Welcome to the Haven</p>
+          <h2 class="section-title">A Retreat Where Nature Does the Work</h2>
+          <div class="divider"></div>
+          <p class="body-text">
+            Nestled among ancient pines in Pennsylvania's Pocono Mountains, Pocono Lake Haven
+            sits directly on a pristine, private lake. Wake to misty mornings on the water. Spend
+            afternoons kayaking, fishing, or reading on the wraparound deck as herons glide past.
+          </p>
+          <p class="body-text" style="margin-top: 1rem;">
+            As evening falls, gather around the stone fireplace with family and friends. This is a
+            place where time slows, connections deepen, and memories are made to last a lifetime.
+          </p>
+          <a href="#highlights" class="btn-primary" style="margin-top: 2rem;">Discover More</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ HIGHLIGHTS ═══════════════════ -->
+  <section id="highlights">
+    <div class="inner">
+
+      <div class="highlights-hdr fade-in">
+        <p class="eyebrow">What Makes It Special</p>
+        <h2 class="section-title">Property Highlights</h2>
+        <div class="divider"></div>
+        <p class="body-text" style="margin: 0 auto; text-align: center; max-width: 520px;">
+          Every detail has been thoughtfully curated to offer comfort, beauty, and unforgettable
+          experiences in the heart of the Poconos.
+        </p>
+      </div>
+
+      <div class="highlights-grid">
+        <div class="hl-card fade-in">
+          <div class="hl-icon">🌊</div>
+          <h3 class="hl-title">Private Lake Access</h3>
+          <p class="hl-text">Step off the deck onto your own private dock. Swim, fish, kayak, or simply watch the sun paint the water gold at dusk. The lake is all yours.</p>
+        </div>
+        <div class="hl-card fade-in">
+          <div class="hl-icon">🔥</div>
+          <h3 class="hl-title">Stone Fireplace</h3>
+          <p class="hl-text">A grand, floor-to-ceiling stone fireplace anchors the living room, filling the space with warmth and amber glow on cool mountain nights.</p>
+        </div>
+        <div class="hl-card fade-in">
+          <div class="hl-icon">🌲</div>
+          <h3 class="hl-title">Wraparound Deck</h3>
+          <p class="hl-text">A sweeping deck offers panoramic views of the lake and forest — the perfect setting for morning coffee, sunset cocktails, or star-filled evenings.</p>
+        </div>
+        <div class="hl-card fade-in">
+          <div class="hl-icon">🛶</div>
+          <h3 class="hl-title">Kayaks & Paddleboards</h3>
+          <p class="hl-text">Complimentary kayaks and paddleboards are ready for your adventure. Explore every quiet cove and mirror-still corner of the lake.</p>
+        </div>
+        <div class="hl-card fade-in">
+          <div class="hl-icon">🍳</div>
+          <h3 class="hl-title">Chef's Kitchen</h3>
+          <p class="hl-text">A fully equipped, open-concept kitchen with high-end appliances and a large island — ready for everything from big family breakfasts to candlelit dinners.</p>
+        </div>
+        <div class="hl-card fade-in">
+          <div class="hl-icon">🌙</div>
+          <h3 class="hl-title">Stargazing Deck</h3>
+          <p class="hl-text">Far from city lights, the Poconos offer some of the darkest skies in the Northeast. Lie back and watch the Milky Way arc overhead in full splendor.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════ AMENITIES ═══════════════════ -->
+  <section id="amenities">
+    <div class="inner">
+      <div class="amenities-layout">
+
+        <div class="amenities-content fade-in">
+          <p class="eyebrow">Everything You Need</p>
+          <h2 class="section-title">Amenities</h2>
+          <div class="divider"></div>
+          <p class="body-text">We've thought of everything so you don't have to. Arrive and settle straight into relaxation.</p>
+
+          <div class="am-categories">
+            <div class="am-cat">
+              <h3>Sleeping &amp; Living</h3>
+              <div class="am-items">
+                <div class="am-item">4 Bedrooms</div>
+                <div class="am-item">King &amp; Queen Beds</div>
+                <div class="am-item">3 Full Bathrooms</div>
+                <div class="am-item">Sleeps up to 10</div>
+                <div class="am-item">Smart TVs</div>
+                <div class="am-item">High-Speed WiFi</div>
+              </div>
+            </div>
+            <div class="am-cat">
+              <h3>Kitchen &amp; Dining</h3>
+              <div class="am-items">
+                <div class="am-item">Full Chef's Kitchen</div>
+                <div class="am-item">Coffee Station</div>
+                <div class="am-item">Dining for 10</div>
+                <div class="am-item">Gas BBQ Grill</div>
+                <div class="am-item">Cookware &amp; Dishes</div>
+                <div class="am-item">Outdoor Dining</div>
+              </div>
+            </div>
+            <div class="am-cat">
+              <h3>Outdoor &amp; Recreation</h3>
+              <div class="am-items">
+                <div class="am-item">Private Dock</div>
+                <div class="am-item">2 Kayaks</div>
+                <div class="am-item">Paddleboards</div>
+                <div class="am-item">Lakeside Fire Pit</div>
+                <div class="am-item">Fishing Gear</div>
+                <div class="am-item">Hiking Trails Nearby</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <img class="amenities-img"
+               src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80"
+               alt="Cozy living interior" loading="lazy">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ GALLERY ═══════════════════ -->
+  <section id="gallery">
+    <div class="inner">
+
+      <div class="gallery-hdr fade-in">
+        <p class="eyebrow">See for Yourself</p>
+        <h2 class="section-title">Photo Gallery</h2>
+        <div class="divider"></div>
+        <p class="body-text" style="margin: 0 auto; text-align: center; max-width: 480px;">
+          Click any photo to view full screen. Replace these placeholder images with your own property photos.
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="g-item fade-in">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80"
+               alt="Stunning mountain lake" loading="lazy">
+        </div>
+        <div class="g-item fade-in">
+          <img src="https://images.unsplash.com/photo-1472745942893-4b9f730c7668?auto=format&fit=crop&w=800&q=80"
+               alt="Morning on the water" loading="lazy">
+        </div>
+        <div class="g-item fade-in">
+          <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80"
+               alt="Forest path in autumn" loading="lazy">
+        </div>
+        <div class="g-item fade-in">
+          <img src="https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?auto=format&fit=crop&w=800&q=80"
+               alt="Cozy fireplace" loading="lazy">
+        </div>
+        <div class="g-item fade-in">
+          <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80"
+               alt="Open living space" loading="lazy">
+        </div>
+        <div class="g-item fade-in">
+          <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=800&q=80"
+               alt="Stars over the lake" loading="lazy">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════ BOOKING CTA ═══════════════════ -->
+  <section id="booking">
+    <div class="booking-inner fade-in">
+      <p class="booking-eyebrow">Your Lakeside Escape Awaits</p>
+      <h2 class="booking-title">Ready to Make <em>Memories?</em></h2>
+      <p class="booking-body">
+        Check availability and reserve your stay at Pocono Lake Haven. Dates fill up fast —
+        secure your retreat before they're gone.
+      </p>
+      <a href="https://www.airbnb.com/rooms/1581830679759519822" class="booking-btn">Book on Airbnb</a>
+      <p class="airbnb-note">Listed on <span>Airbnb</span> &nbsp;·&nbsp; Superhost &nbsp;·&nbsp; Instant Book</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer>
+    <p class="footer-logo">Pocono <span>Lake Haven</span></p>
+    <p class="footer-tagline">Pocono Mountains, Pennsylvania</p>
+    <ul class="footer-nav">
+      <li><a href="#about">About</a></li>
+      <li><a href="#highlights">Highlights</a></li>
+      <li><a href="#amenities">Amenities</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="https://www.airbnb.com/rooms/1581830679759519822">Book Now</a></li>
+    </ul>
+    <p class="footer-copy">&copy; 2025 Pocono Lake Haven. All rights reserved.</p>
+  </footer>
+
+  <!-- ═══════════════════ LIGHTBOX ═══════════════════ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+    <img id="lbImg" src="" alt="">
+  </div>
+
+  <script>
+    // ── Navbar scroll state ──
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+
+    // ── Hero parallax ──
+    const heroBg = document.getElementById('heroBg');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY < window.innerHeight) {
+        heroBg.style.transform = `scale(1.06) translateY(${window.scrollY * 0.38}px)`;
+      }
+    }, { passive: true });
+
+    // ── Scroll fade-in with sibling stagger ──
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const siblings = [...entry.target.parentElement.querySelectorAll('.fade-in')];
+        const idx = siblings.indexOf(entry.target);
+        setTimeout(() => entry.target.classList.add('visible'), idx * 90);
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    fadeEls.forEach(el => io.observe(el));
+
+    // ── Gallery lightbox ──
+    const lightbox = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lbImg');
+    const lbClose  = document.getElementById('lbClose');
+
+    document.querySelectorAll('.g-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        lbImg.src = img.src.replace(/w=\d+/, 'w=1600').replace(/q=\d+/, 'q=90');
+        lbImg.alt = img.alt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // ── Smooth scroll for anchor links ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
