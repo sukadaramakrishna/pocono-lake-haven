@@ -1,0 +1,112 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: images
+public_folder: /images
+
+collections:
+  - name: site_content
+    label: Site Content
+    files:
+      - label: Property Details
+        name: content
+        file: content.json
+        format: json
+        fields:
+          - label: Airbnb Listing URL
+            name: airbnb_url
+            widget: string
+            hint: Full URL of your Airbnb listing
+
+          - label: Hero Eyebrow Text
+            name: hero_eyebrow
+            widget: string
+            hint: Small text above the main title (e.g. "Pocono Mountains, Pennsylvania")
+
+          - label: Hero Subtitle
+            name: hero_subtitle
+            widget: text
+            hint: The tagline displayed under the property name in the hero
+
+          - label: Stats Bar
+            name: stats
+            widget: list
+            hint: The key stats shown below the hero (bedrooms, bathrooms, guests, etc.)
+            fields:
+              - { label: Value, name: value, widget: string }
+              - { label: Label, name: label, widget: string }
+
+          - label: About — Eyebrow
+            name: about_eyebrow
+            widget: string
+
+          - label: About — Title
+            name: about_title
+            widget: string
+
+          - label: About — Paragraph 1
+            name: about_body1
+            widget: text
+
+          - label: About — Paragraph 2
+            name: about_body2
+            widget: text
+
+          - label: Highlight Cards
+            name: highlights
+            widget: list
+            hint: The 6 feature cards in the Highlights section
+            fields:
+              - { label: Icon (emoji), name: icon, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: text, widget: text }
+
+          - label: Amenities — Sleeping & Living
+            name: amenities_sleeping
+            widget: list
+            field: { label: Item, name: item, widget: string }
+
+          - label: Amenities — Kitchen & Dining
+            name: amenities_kitchen
+            widget: list
+            field: { label: Item, name: item, widget: string }
+
+          - label: Amenities — Outdoor & Recreation
+            name: amenities_outdoor
+            widget: list
+            field: { label: Item, name: item, widget: string }
+
+          - label: Booking — Eyebrow
+            name: booking_eyebrow
+            widget: string
+
+          - label: Booking — Title (regular part)
+            name: booking_title
+            widget: string
+            hint: 'e.g. "Ready to Make"'
+
+          - label: Booking — Title (italic part)
+            name: booking_title_em
+            widget: string
+            hint: 'e.g. "Memories?" — displayed in italic after the title'
+
+          - label: Booking — Body Text
+            name: booking_body
+            widget: text
+
+          - label: Gallery Images
+            name: gallery
+            widget: list
+            hint: Add, remove, or reorder your property photos
+            fields:
+              - { label: Image URL, name: src, widget: string }
+              - { label: Alt Text, name: alt, widget: string }
+
+          - label: Footer Tagline
+            name: footer_tagline
+            widget: string
+
+          - label: Footer Copyright
+            name: footer_copyright
+            widget: string

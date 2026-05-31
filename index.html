@@ -58,12 +58,12 @@
     .nav-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.35rem;
-      color: #FFD966;
+      color: #CC0000; font-weight: bold;
       font-weight: 700;
       text-decoration: none;
       letter-spacing: 0.04em;
     }
-    .nav-logo span { color: #FFD966; font-weight: 700; }
+    .nav-logo span { color: #CC0000; font-weight: bold; }
 
     .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
 
@@ -76,11 +76,11 @@
       text-transform: uppercase;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--gold-light); }
+    .nav-links a:hover { color: #CC0000; font-weight: bold; }
 
     .nav-cta {
-      background: var(--gold) !important;
-      color: #FFD966 !important;
+      background: #ffffff !important;
+      color: #CC0000 !important; font-weight: bold !important;
       padding: 0.55rem 1.3rem;
       border-radius: 2px;
       transition: background 0.25s !important, color 0.25s !important;
@@ -150,7 +150,7 @@
       opacity: 0;
       animation: fadeUp 0.8s ease 0.5s forwards;
     }
-    .hero-title em { font-style: italic; color: #FFD966; }
+    .hero-title em { font-style: italic; color: #CC0000; font-weight: bold; }
 
     .hero-subtitle {
       font-size: clamp(1rem, 2vw, 1.2rem);
@@ -172,8 +172,8 @@
     }
 
     .btn-primary {
-      background: var(--gold);
-      color: #FFD966;
+      background: #ffffff;
+      color: #CC0000; font-weight: bold;
       padding: 1rem 2.5rem;
       text-decoration: none;
       font-size: 0.82rem;
@@ -250,7 +250,7 @@
     .stat-num {
       font-family: 'Playfair Display', serif;
       font-size: 1.75rem;
-      color: var(--gold-light);
+      color: #CC0000; font-weight: bold;
       display: block;
       line-height: 1;
     }
@@ -272,7 +272,7 @@
       font-weight: 600;
       letter-spacing: 0.26em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: #CC0000; font-weight: bold;
       margin-bottom: 0.9rem;
     }
 
@@ -417,7 +417,7 @@
 
     /* ===== AMENITIES ===== */
     #amenities { background: var(--pine-dark); }
-    #amenities .eyebrow    { color: var(--gold-light); }
+    #amenities .eyebrow    { color: #CC0000; font-weight: bold; }
     #amenities .section-title { color: #fff; }
     #amenities .body-text  { color: rgba(255,255,255,0.62); }
 
@@ -443,7 +443,7 @@
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--gold-light);
+      color: #CC0000; font-weight: bold;
       margin-bottom: 0.9rem;
       padding-bottom: 0.45rem;
       border-bottom: 1px solid rgba(196,144,42,0.22);
@@ -539,7 +539,7 @@
       font-weight: 600;
       letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: var(--gold-light);
+      color: #CC0000; font-weight: bold;
       margin-bottom: 1.4rem;
     }
 
@@ -550,7 +550,7 @@
       line-height: 1.2;
       margin-bottom: 1.2rem;
     }
-    .booking-title em { font-style: italic; color: var(--gold-light); }
+    .booking-title em { font-style: italic; color: #CC0000; font-weight: bold; }
 
     .booking-body {
       font-size: 1.05rem;
@@ -560,8 +560,8 @@
     }
 
     .booking-btn {
-      background: var(--gold);
-      color: #FFD966;
+      background: #ffffff;
+      color: #CC0000; font-weight: bold;
       padding: 1.1rem 3rem;
       text-decoration: none;
       font-size: 0.88rem;
@@ -601,7 +601,7 @@
       color: #fff;
       margin-bottom: 0.4rem;
     }
-    .footer-logo span { color: var(--gold-light); }
+    .footer-logo span { color: #CC0000; font-weight: bold; }
 
     .footer-tagline {
       font-size: 0.8rem;
@@ -626,7 +626,7 @@
       text-transform: uppercase;
       transition: color 0.2s;
     }
-    .footer-nav a:hover { color: var(--gold-light); }
+    .footer-nav a:hover { color: #CC0000; font-weight: bold; }
 
     .footer-copy {
       font-size: 0.72rem;
@@ -678,11 +678,64 @@
       50%       { opacity: 1; }
     }
 
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem;
+      z-index: 1100;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1040;
+    }
+    .nav-backdrop.open { display: block; }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 960px) {
+      .hamburger { display: flex; }
+
+      .nav-links {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed;
+        top: 0; right: 0; bottom: 0;
+        width: 75%;
+        max-width: 300px;
+        background: var(--pine-dark);
+        padding: 5rem 2rem 2rem;
+        gap: 1.5rem;
+        transform: translateX(100%);
+        transition: transform 0.35s ease;
+        z-index: 1050;
+        overflow-y: auto;
+        box-shadow: -4px 0 30px rgba(0,0,0,0.3);
+      }
+      .nav-links.open { transform: translateX(0); }
+      .nav-links a { font-size: 1rem; color: rgba(255,255,255,0.9); letter-spacing: 0.08em; }
+      .nav-links .nav-cta { margin-top: 0.5rem; width: fit-content; }
+
       nav { padding: 1.25rem 1.5rem; }
       nav.scrolled { padding: 0.85rem 1.5rem; }
-      .nav-links { display: none; }
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .about-img-accent { display: none; }
       .about-badge { left: 1rem; }
@@ -700,11 +753,22 @@
 
     @media (max-width: 600px) {
       section { padding: 4rem 1.25rem; }
+      #booking { padding: 5rem 1.25rem; }
+      .hero-btns { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-outline { width: 100%; max-width: 320px; text-align: center; }
+      .booking-btn { width: 100%; max-width: 320px; text-align: center; padding: 1.1rem 1.5rem; }
       .highlights-grid { grid-template-columns: 1fr; }
       .am-items { grid-template-columns: 1fr; }
+      .stats-bar { gap: 1.5rem; padding: 1.4rem 1.25rem; }
       .g-item:nth-child(2), .g-item:nth-child(3) { grid-column: span 12; height: 200px; }
       .g-item:nth-child(4), .g-item:nth-child(5) { grid-column: span 6; }
       .g-item:nth-child(6) { grid-column: span 12; }
+      .footer-nav { gap: 1.2rem; }
+    }
+
+    @media (max-width: 400px) {
+      .stats-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+      .stat-num { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -714,14 +778,18 @@
   <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
   <nav id="nav">
     <a href="#" class="nav-logo">Pocono <span>Lake Haven</span></a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#highlights">Highlights</a></li>
       <li><a href="#amenities">Amenities</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="https://www.airbnb.com/rooms/1581830679759519822" class="nav-cta">Book Now</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="nav-backdrop" id="navBackdrop"></div>
 
   <!-- ═══════════════════ HERO ═══════════════════ -->
   <section id="hero">
@@ -746,10 +814,10 @@
 
   <!-- ═══════════════════ STATS BAR ═══════════════════ -->
   <div class="stats-bar">
-    <div class="stat"><span class="stat-num">4</span><span class="stat-label">Bedrooms</span></div>
+    <div class="stat"><span class="stat-num">5</span><span class="stat-label">Bedrooms</span></div>
     <div class="stat"><span class="stat-num">3</span><span class="stat-label">Bathrooms</span></div>
-    <div class="stat"><span class="stat-num">10</span><span class="stat-label">Guests</span></div>
-    <div class="stat"><span class="stat-num">★ 4.9</span><span class="stat-label">Rating</span></div>
+    <div class="stat"><span class="stat-num">14</span><span class="stat-label">Guests</span></div>
+    <div class="stat"><span class="stat-num">★ 5.0</span><span class="stat-label">Rating</span></div>
     <div class="stat"><span class="stat-num">Lake</span><span class="stat-label">Front Access</span></div>
   </div>
 
@@ -805,7 +873,7 @@
         </p>
       </div>
 
-      <div class="highlights-grid">
+      <div class="highlights-grid" id="highlights-grid">
         <div class="hl-card fade-in">
           <div class="hl-icon">🌊</div>
           <h3 class="hl-title">Private Lake Access</h3>
@@ -855,18 +923,18 @@
           <div class="am-categories">
             <div class="am-cat">
               <h3>Sleeping &amp; Living</h3>
-              <div class="am-items">
-                <div class="am-item">4 Bedrooms</div>
+              <div class="am-items" id="amenities-sleeping">
+                <div class="am-item">5 Bedrooms</div>
                 <div class="am-item">King &amp; Queen Beds</div>
                 <div class="am-item">3 Full Bathrooms</div>
-                <div class="am-item">Sleeps up to 10</div>
+                <div class="am-item">Sleeps up to 14</div>
                 <div class="am-item">Smart TVs</div>
                 <div class="am-item">High-Speed WiFi</div>
               </div>
             </div>
             <div class="am-cat">
               <h3>Kitchen &amp; Dining</h3>
-              <div class="am-items">
+              <div class="am-items" id="amenities-kitchen">
                 <div class="am-item">Full Chef's Kitchen</div>
                 <div class="am-item">Coffee Station</div>
                 <div class="am-item">Dining for 10</div>
@@ -877,13 +945,16 @@
             </div>
             <div class="am-cat">
               <h3>Outdoor &amp; Recreation</h3>
-              <div class="am-items">
+              <div class="am-items" id="amenities-outdoor">
                 <div class="am-item">Private Dock</div>
                 <div class="am-item">2 Kayaks</div>
                 <div class="am-item">Paddleboards</div>
                 <div class="am-item">Lakeside Fire Pit</div>
                 <div class="am-item">Fishing Gear</div>
                 <div class="am-item">Hiking Trails Nearby</div>
+                <div class="am-item">Hot Tub</div>
+                <div class="am-item">Sauna</div>
+                <div class="am-item">Game Room</div>
               </div>
             </div>
           </div>
@@ -946,7 +1017,7 @@
   <section id="booking">
     <div class="booking-inner fade-in">
       <p class="booking-eyebrow">Your Lakeside Escape Awaits</p>
-      <h2 class="booking-title">Ready to Make <em>Memories?</em></h2>
+      <h2 class="booking-title" id="booking-title">Ready to Make <em>Memories?</em></h2>
       <p class="booking-body">
         Check availability and reserve your stay at Pocono Lake Haven. Dates fill up fast —
         secure your retreat before they're gone.
@@ -1010,15 +1081,18 @@
     const lbImg    = document.getElementById('lbImg');
     const lbClose  = document.getElementById('lbClose');
 
-    document.querySelectorAll('.g-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const img = item.querySelector('img');
-        lbImg.src = img.src.replace(/w=\d+/, 'w=1600').replace(/q=\d+/, 'q=90');
-        lbImg.alt = img.alt;
-        lightbox.classList.add('open');
-        document.body.style.overflow = 'hidden';
+    function initLightbox() {
+      document.querySelectorAll('.g-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const img = item.querySelector('img');
+          lbImg.src = img.src.replace(/w=\d+/, 'w=1600').replace(/q=\d+/, 'q=90');
+          lbImg.alt = img.alt;
+          lightbox.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
       });
-    });
+    }
+    initLightbox();
 
     function closeLightbox() {
       lightbox.classList.remove('open');
@@ -1028,6 +1102,88 @@
     lbClose.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    // ── Content hydration from content.json ──
+    fetch('/content.json')
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(c => {
+        // Airbnb links
+        document.querySelectorAll('a[href*="airbnb"]').forEach(a => { a.href = c.airbnb_url; });
+
+        // Hero
+        document.querySelector('.hero-eyebrow').textContent = c.hero_eyebrow;
+        document.querySelector('.hero-subtitle').textContent = c.hero_subtitle;
+
+        // Stats bar
+        document.querySelector('.stats-bar').innerHTML = c.stats.map(s =>
+          `<div class="stat"><span class="stat-num">${s.value}</span><span class="stat-label">${s.label}</span></div>`
+        ).join('');
+
+        // About
+        document.querySelector('#about .eyebrow').textContent  = c.about_eyebrow;
+        document.querySelector('#about .section-title').textContent = c.about_title;
+        const bodyTexts = document.querySelectorAll('#about .body-text');
+        if (bodyTexts[0]) bodyTexts[0].textContent = c.about_body1;
+        if (bodyTexts[1]) bodyTexts[1].textContent = c.about_body2;
+
+        // Highlights
+        document.getElementById('highlights-grid').innerHTML = c.highlights.map(h =>
+          `<div class="hl-card fade-in">
+            <div class="hl-icon">${h.icon}</div>
+            <h3 class="hl-title">${h.title}</h3>
+            <p class="hl-text">${h.text}</p>
+          </div>`
+        ).join('');
+
+        // Amenities
+        const items = arr => arr.map(i => `<div class="am-item">${i}</div>`).join('');
+        document.getElementById('amenities-sleeping').innerHTML = items(c.amenities_sleeping);
+        document.getElementById('amenities-kitchen').innerHTML  = items(c.amenities_kitchen);
+        document.getElementById('amenities-outdoor').innerHTML  = items(c.amenities_outdoor);
+
+        // Booking
+        document.querySelector('.booking-eyebrow').textContent = c.booking_eyebrow;
+        document.getElementById('booking-title').innerHTML = `${c.booking_title} <em>${c.booking_title_em}</em>`;
+        document.querySelector('.booking-body').textContent = c.booking_body;
+
+        // Gallery
+        document.querySelector('.gallery-grid').innerHTML = c.gallery.map(img =>
+          `<div class="g-item fade-in"><img src="${img.src}" alt="${img.alt}" loading="lazy"></div>`
+        ).join('');
+        initLightbox();
+
+        // Footer
+        document.querySelector('.footer-tagline').textContent = c.footer_tagline;
+        document.querySelector('.footer-copy').textContent    = c.footer_copyright;
+
+        // Re-observe newly rendered fade-in elements
+        document.querySelectorAll('.fade-in:not(.visible)').forEach(el => io.observe(el));
+      })
+      .catch(() => {}); // Gracefully keep hardcoded content if fetch fails
+
+    // ── Hamburger menu ──
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+    const backdrop  = document.getElementById('navBackdrop');
+
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+      backdrop.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      hamburger.classList.toggle('open');
+      backdrop.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    backdrop.addEventListener('click', closeMenu);
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
     // ── Smooth scroll for anchor links ──
     document.querySelectorAll('a[href^="#"]').forEach(a => {
