@@ -1,11 +1,553 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pocono Lake Haven — Content Manager</title>
+  <title>Admin — Pocono Lake Haven</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f4f5f7;
+      color: #1a1a1a;
+      font-size: 14px;
+    }
+
+    header {
+      background: #1A2C25;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    header h1 { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.04em; }
+    header span { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #1A2C25;
+      color: #fff;
+      padding: 0.8rem 1.4rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.error { background: #c0392b; }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 1rem 1.4rem;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .card-header:hover { background: #fafafa; }
+    .card-header .icon { font-size: 1.1rem; }
+    .card-header h2 { font-size: 0.95rem; font-weight: 600; flex: 1; }
+    .card-header .chevron { color: #999; font-size: 0.8rem; transition: transform 0.2s; }
+    .card-header.open .chevron { transform: rotate(180deg); }
+
+    .card-body { padding: 1.4rem; display: none; }
+    .card-body.open { display: block; }
+
+    .field { margin-bottom: 1.2rem; }
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.4rem;
+    }
+
+    input[type="text"], input[type="url"], textarea {
+      width: 100%;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 5px;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: #1a1a1a;
+      transition: border-color 0.2s;
+      background: #fff;
+    }
+    input[type="text"]:focus, input[type="url"]:focus, textarea:focus {
+      outline: none;
+      border-color: #1A2C25;
+    }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* List items */
+    .list-wrap { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f8f8f8;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 5px;
+      padding: 0.4rem 0.5rem;
+    }
+    .list-item input { border: none; background: transparent; padding: 0.2rem 0.3rem; flex: 1; }
+    .list-item input:focus { outline: none; }
+
+    .list-item-complex {
+      background: #f8f8f8;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .list-item-complex .item-row { display: grid; gap: 0.5rem; }
+    .list-item-complex input, .list-item-complex textarea {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.88rem;
+    }
+    .list-item-complex textarea { min-height: 60px; }
+
+    .item-actions { display: flex; justify-content: flex-end; }
+
+    .btn-remove {
+      background: none;
+      border: none;
+      color: #cc3333;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .btn-remove:hover { background: #fee; }
+
+    .btn-add {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      background: none;
+      border: 1.5px dashed #bbb;
+      border-radius: 5px;
+      color: #666;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.82rem;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .btn-add:hover { border-color: #1A2C25; color: #1A2C25; background: #f0f5f3; }
+
+    .save-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0; right: 0;
+      background: #fff;
+      border-top: 1px solid #e8e8e8;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1rem;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+      z-index: 50;
+    }
+
+    .btn-save {
+      background: #1A2C25;
+      color: #fff;
+      border: none;
+      padding: 0.7rem 2rem;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-save:hover { background: #2D4A3E; }
+    .btn-save:disabled { background: #999; cursor: not-allowed; }
+
+    .view-site {
+      color: #1A2C25;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .view-site:hover { text-decoration: underline; }
+
+    .hint { font-size: 0.75rem; color: #999; margin-top: 0.3rem; }
+  </style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+<header>
+  <h1>Pocono Lake Haven — Admin</h1>
+  <span>Content Manager</span>
+</header>
+
+<div class="container" id="app">
+  <p style="color:#999; padding: 2rem 0;">Loading content...</p>
+</div>
+
+<div class="save-bar">
+  <a href="http://localhost:3000" target="_blank" class="view-site">← View Site</a>
+  <button class="btn-save" id="saveBtn" onclick="saveContent()">Save Changes</button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  let content = {};
+
+  // ── Load content.json ──
+  fetch('/content.json')
+    .then(r => r.json())
+    .then(data => { content = data; renderAdmin(); })
+    .catch(() => showToast('Could not load content.json — is the server running?', true));
+
+  // ── Render admin form ──
+  function renderAdmin() {
+    document.getElementById('app').innerHTML = `
+
+      ${card('🔗', 'General', `
+        <div class="field">
+          <label>Airbnb Listing URL</label>
+          <input type="url" id="airbnb_url" value="${esc(content.airbnb_url)}">
+        </div>
+      `)}
+
+      ${card('🏔️', 'Hero Section', `
+        <div class="field">
+          <label>Eyebrow Text</label>
+          <input type="text" id="hero_eyebrow" value="${esc(content.hero_eyebrow)}">
+          <p class="hint">Small line above the property name (e.g. "Pocono Mountains, Pennsylvania")</p>
+        </div>
+        <div class="field">
+          <label>Subtitle / Tagline</label>
+          <textarea id="hero_subtitle">${esc(content.hero_subtitle)}</textarea>
+        </div>
+      `)}
+
+      ${card('📊', 'Stats Bar', `
+        <div class="field">
+          <label>Stats</label>
+          <div class="list-wrap" id="stats-list">
+            ${content.stats.map((s, i) => statItem(s, i)).join('')}
+          </div>
+          <button class="btn-add" onclick="addStat()">+ Add Stat</button>
+        </div>
+      `)}
+
+      ${card('📖', 'About Section', `
+        <div class="field">
+          <label>Eyebrow</label>
+          <input type="text" id="about_eyebrow" value="${esc(content.about_eyebrow)}">
+        </div>
+        <div class="field">
+          <label>Title</label>
+          <input type="text" id="about_title" value="${esc(content.about_title)}">
+        </div>
+        <div class="field">
+          <label>Paragraph 1</label>
+          <textarea id="about_body1">${esc(content.about_body1)}</textarea>
+        </div>
+        <div class="field">
+          <label>Paragraph 2</label>
+          <textarea id="about_body2">${esc(content.about_body2)}</textarea>
+        </div>
+      `)}
+
+      ${card('⭐', 'Highlights', `
+        <div class="field">
+          <div class="list-wrap" id="highlights-list">
+            ${content.highlights.map((h, i) => highlightItem(h, i)).join('')}
+          </div>
+          <button class="btn-add" onclick="addHighlight()">+ Add Highlight Card</button>
+        </div>
+      `)}
+
+      ${card('🏡', 'Amenities', `
+        <div class="field">
+          <label>Sleeping &amp; Living</label>
+          <div class="list-wrap" id="amenities-sleeping">
+            ${content.amenities_sleeping.map((item, i) => simpleListItem('amenities-sleeping', item, i)).join('')}
+          </div>
+          <button class="btn-add" onclick="addSimpleItem('amenities-sleeping', 'amenities_sleeping')">+ Add Item</button>
+        </div>
+        <div class="field">
+          <label>Kitchen &amp; Dining</label>
+          <div class="list-wrap" id="amenities-kitchen">
+            ${content.amenities_kitchen.map((item, i) => simpleListItem('amenities-kitchen', item, i)).join('')}
+          </div>
+          <button class="btn-add" onclick="addSimpleItem('amenities-kitchen', 'amenities_kitchen')">+ Add Item</button>
+        </div>
+        <div class="field">
+          <label>Outdoor &amp; Recreation</label>
+          <div class="list-wrap" id="amenities-outdoor">
+            ${content.amenities_outdoor.map((item, i) => simpleListItem('amenities-outdoor', item, i)).join('')}
+          </div>
+          <button class="btn-add" onclick="addSimpleItem('amenities-outdoor', 'amenities_outdoor')">+ Add Item</button>
+        </div>
+      `)}
+
+      ${card('📅', 'Booking Section', `
+        <div class="field">
+          <label>Eyebrow</label>
+          <input type="text" id="booking_eyebrow" value="${esc(content.booking_eyebrow)}">
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Title (regular)</label>
+            <input type="text" id="booking_title" value="${esc(content.booking_title)}">
+          </div>
+          <div class="field">
+            <label>Title (italic part)</label>
+            <input type="text" id="booking_title_em" value="${esc(content.booking_title_em)}">
+          </div>
+        </div>
+        <div class="field">
+          <label>Body Text</label>
+          <textarea id="booking_body">${esc(content.booking_body)}</textarea>
+        </div>
+      `)}
+
+      ${card('🖼️', 'Gallery', `
+        <div class="field">
+          <div class="list-wrap" id="gallery-list">
+            ${content.gallery.map((img, i) => galleryItem(img, i)).join('')}
+          </div>
+          <button class="btn-add" onclick="addGalleryItem()">+ Add Photo</button>
+        </div>
+      `)}
+
+      ${card('📄', 'Footer', `
+        <div class="field">
+          <label>Tagline</label>
+          <input type="text" id="footer_tagline" value="${esc(content.footer_tagline)}">
+        </div>
+        <div class="field">
+          <label>Copyright</label>
+          <input type="text" id="footer_copyright" value="${esc(content.footer_copyright)}">
+        </div>
+      `)}
+    `;
+
+    // Open first card by default
+    document.querySelector('.card-header').click();
+  }
+
+  // ── Card template ──
+  function card(icon, title, body) {
+    return `
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <span class="icon">${icon}</span>
+          <h2>${title}</h2>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="card-body">${body}</div>
+      </div>`;
+  }
+
+  function toggleCard(header) {
+    header.classList.toggle('open');
+    header.nextElementSibling.classList.toggle('open');
+  }
+
+  // ── Item templates ──
+  function statItem(s, i) {
+    return `<div class="list-item" id="stat-${i}">
+      <input type="text" placeholder="Value" value="${esc(s.value)}" style="width:90px">
+      <input type="text" placeholder="Label" value="${esc(s.label)}" style="flex:1">
+      <button class="btn-remove" onclick="removeItem('stat-${i}')">✕</button>
+    </div>`;
+  }
+
+  function highlightItem(h, i) {
+    return `<div class="list-item-complex" id="hl-${i}">
+      <div class="item-row" style="grid-template-columns: 80px 1fr">
+        <input type="text" placeholder="Icon (emoji)" value="${esc(h.icon)}">
+        <input type="text" placeholder="Title" value="${esc(h.title)}">
+      </div>
+      <textarea placeholder="Description">${esc(h.text)}</textarea>
+      <div class="item-actions">
+        <button class="btn-remove" onclick="removeItem('hl-${i}')">✕ Remove</button>
+      </div>
+    </div>`;
+  }
+
+  function simpleListItem(listId, value, i) {
+    return `<div class="list-item" id="${listId}-${i}">
+      <input type="text" value="${esc(value)}" style="flex:1">
+      <button class="btn-remove" onclick="removeItem('${listId}-${i}')">✕</button>
+    </div>`;
+  }
+
+  function galleryItem(img, i) {
+    return `<div class="list-item-complex" id="gallery-${i}">
+      <input type="url" placeholder="Image URL" value="${esc(img.src)}">
+      <input type="text" placeholder="Alt text (description)" value="${esc(img.alt)}">
+      <div class="item-actions">
+        <button class="btn-remove" onclick="removeItem('gallery-${i}')">✕ Remove</button>
+      </div>
+    </div>`;
+  }
+
+  // ── Add / remove ──
+  function removeItem(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  }
+
+  function addStat() {
+    const list = document.getElementById('stats-list');
+    const i = Date.now();
+    const div = document.createElement('div');
+    div.innerHTML = statItem({ value: '', label: '' }, i);
+    list.appendChild(div.firstElementChild);
+  }
+
+  function addHighlight() {
+    const list = document.getElementById('highlights-list');
+    const i = Date.now();
+    const div = document.createElement('div');
+    div.innerHTML = highlightItem({ icon: '', title: '', text: '' }, i);
+    list.appendChild(div.firstElementChild);
+  }
+
+  function addSimpleItem(listId) {
+    const list = document.getElementById(listId);
+    const i = Date.now();
+    const div = document.createElement('div');
+    div.innerHTML = simpleListItem(listId, '', i);
+    list.appendChild(div.firstElementChild);
+  }
+
+  function addGalleryItem() {
+    const list = document.getElementById('gallery-list');
+    const i = Date.now();
+    const div = document.createElement('div');
+    div.innerHTML = galleryItem({ src: '', alt: '' }, i);
+    list.appendChild(div.firstElementChild);
+  }
+
+  // ── Collect & save ──
+  function collectSimpleList(containerId) {
+    return [...document.getElementById(containerId).querySelectorAll('input[type="text"]')]
+      .map(i => i.value.trim()).filter(Boolean);
+  }
+
+  function saveContent() {
+    const btn = document.getElementById('saveBtn');
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+
+    // Stats
+    const stats = [...document.getElementById('stats-list').children].map(el => {
+      const inputs = el.querySelectorAll('input');
+      return { value: inputs[0]?.value.trim() || '', label: inputs[1]?.value.trim() || '' };
+    }).filter(s => s.value || s.label);
+
+    // Highlights
+    const highlights = [...document.getElementById('highlights-list').children].map(el => {
+      const inputs = el.querySelectorAll('input');
+      const textarea = el.querySelector('textarea');
+      return { icon: inputs[0]?.value.trim() || '', title: inputs[1]?.value.trim() || '', text: textarea?.value.trim() || '' };
+    }).filter(h => h.title);
+
+    // Gallery
+    const gallery = [...document.getElementById('gallery-list').children].map(el => {
+      const inputs = el.querySelectorAll('input');
+      return { src: inputs[0]?.value.trim() || '', alt: inputs[1]?.value.trim() || '' };
+    }).filter(g => g.src);
+
+    const updated = {
+      airbnb_url:         document.getElementById('airbnb_url').value.trim(),
+      hero_eyebrow:       document.getElementById('hero_eyebrow').value.trim(),
+      hero_subtitle:      document.getElementById('hero_subtitle').value.trim(),
+      stats,
+      about_eyebrow:      document.getElementById('about_eyebrow').value.trim(),
+      about_title:        document.getElementById('about_title').value.trim(),
+      about_body1:        document.getElementById('about_body1').value.trim(),
+      about_body2:        document.getElementById('about_body2').value.trim(),
+      highlights,
+      amenities_sleeping: collectSimpleList('amenities-sleeping'),
+      amenities_kitchen:  collectSimpleList('amenities-kitchen'),
+      amenities_outdoor:  collectSimpleList('amenities-outdoor'),
+      booking_eyebrow:    document.getElementById('booking_eyebrow').value.trim(),
+      booking_title:      document.getElementById('booking_title').value.trim(),
+      booking_title_em:   document.getElementById('booking_title_em').value.trim(),
+      booking_body:       document.getElementById('booking_body').value.trim(),
+      gallery,
+      footer_tagline:     document.getElementById('footer_tagline').value.trim(),
+      footer_copyright:   document.getElementById('footer_copyright').value.trim(),
+    };
+
+    fetch('/api/save-content', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updated),
+    })
+      .then(r => r.json())
+      .then(res => {
+        if (res.success) {
+          content = updated;
+          showToast('✓ Changes saved successfully!');
+        } else {
+          showToast('Error: ' + res.error, true);
+        }
+      })
+      .catch(() => showToast('Save failed — is the server running?', true))
+      .finally(() => { btn.disabled = false; btn.textContent = 'Save Changes'; });
+  }
+
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = isError ? 'error' : '';
+    t.offsetHeight;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  function esc(str) {
+    return String(str ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+</script>
 </body>
 </html>
