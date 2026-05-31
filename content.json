@@ -1,41 +1,108 @@
 {
   "airbnb_url": "https://www.airbnb.com/rooms/1581830679759519822",
   "hero_eyebrow": "Pocono Mountains, Pennsylvania",
-  "hero_subtitle": "Your private lakeside retreat. Drift into stillness — reawaken to the sound of water and pine.",
+  "hero_subtitle": "Your private lakeside retreat. Drift into stillness, reawaken to the sound of water and pine.",
   "stats": [
-    { "value": "5",     "label": "Bedrooms" },
-    { "value": "3",     "label": "Bathrooms" },
-    { "value": "14",    "label": "Guests" },
-    { "value": "★ 5.0","label": "Rating" },
-    { "value": "Lake",  "label": "Front Access" }
+    {
+      "value": "5",
+      "label": "Bedrooms"
+    },
+    {
+      "value": "3",
+      "label": "Bathrooms"
+    },
+    {
+      "value": "14",
+      "label": "Guests"
+    },
+    {
+      "value": "★ 5.0",
+      "label": "Rating"
+    },
+    {
+      "value": "Lake",
+      "label": "Front Access"
+    }
   ],
   "about_eyebrow": "Welcome to the Haven",
   "about_title": "A Retreat Where Nature Does the Work",
   "about_body1": "Nestled among ancient pines in Pennsylvania's Pocono Mountains, Pocono Lake Haven sits directly on a pristine, private lake. Wake to misty mornings on the water. Spend afternoons kayaking, fishing, or reading on the wraparound deck as herons glide past.",
-  "about_body2": "As evening falls, gather around the stone fireplace with family and friends. This is a place where time slows, connections deepen, and memories are made to last a lifetime.",
+  "about_body2": "As evening falls, gather around the stone fireplace with family and friends, or unwind in the private sauna, soak under the stars in the hot tub, or challenge each other in the game room. This is a place where time slows, connections deepen, and memories are made to last a lifetime.",
   "highlights": [
-    { "icon": "🌊", "title": "Private Lake Access",    "text": "Step off the deck onto your own private dock. Swim, fish, kayak, or simply watch the sun paint the water gold at dusk. The lake is all yours." },
-    { "icon": "🔥", "title": "Stone Fireplace",        "text": "A grand, floor-to-ceiling stone fireplace anchors the living room, filling the space with warmth and amber glow on cool mountain nights." },
-    { "icon": "🌲", "title": "Wraparound Deck",        "text": "A sweeping deck offers panoramic views of the lake and forest — the perfect setting for morning coffee, sunset cocktails, or star-filled evenings." },
-    { "icon": "🛶", "title": "Kayaks & Paddleboards",  "text": "Complimentary kayaks and paddleboards are ready for your adventure. Explore every quiet cove and mirror-still corner of the lake." },
-    { "icon": "🍳", "title": "Chef's Kitchen",         "text": "A fully equipped, open-concept kitchen with high-end appliances and a large island — ready for everything from big family breakfasts to candlelit dinners." },
-    { "icon": "🌙", "title": "Stargazing Deck",        "text": "Far from city lights, the Poconos offer some of the darkest skies in the Northeast. Lie back and watch the Milky Way arc overhead in full splendor." }
+    {
+      "icon": "🌊",
+      "title": "Private Lake Access",
+      "text": "Step off the deck onto your own private dock. Swim, fish, kayak, or simply watch the sun paint the water gold at dusk. The lake is all yours."
+    },
+    {
+      "icon": "🔥",
+      "title": "Stone Fireplace",
+      "text": "A grand, floor-to-ceiling stone fireplace anchors the living room, filling the space with warmth and amber glow on cool mountain nights."
+    },
+    {
+      "icon": "🌲",
+      "title": "Multi Level Deck",
+      "text": "A sweeping deck offers panoramic views of the lake and forest — the perfect setting for morning coffee, sunset cocktails, or star-filled evenings."
+    },
+    {
+      "icon": "🛶",
+      "title": "Kayaks & Paddleboards",
+      "text": "Complimentary kayaks and paddleboards are ready for your adventure. Explore every quiet cove and mirror-still corner of the lake."
+    },
+    {
+      "icon": "🍳",
+      "title": "Chef's Kitchen",
+      "text": "A fully equipped, open-concept kitchen with high-end appliances and a large island — ready for everything from big family breakfasts to candlelit dinners."
+    },
+    {
+      "icon": "🌙",
+      "title": "Stargazing Dock",
+      "text": "Far from city lights, the Poconos offer some of the darkest skies in the Northeast. Lie back and watch the Milky Way arc overhead in full splendor."
+    }
   ],
-  "amenities_sleeping": ["5 Bedrooms", "King & Queen Beds", "3 Full Bathrooms", "Sleeps up to 14", "Smart TVs", "High-Speed WiFi"],
-  "amenities_kitchen":  ["Full Chef's Kitchen", "Coffee Station", "Dining for 10", "Gas BBQ Grill", "Cookware & Dishes", "Outdoor Dining"],
-  "amenities_outdoor":  ["Private Dock", "2 Kayaks", "Paddleboards", "Lakeside Fire Pit", "Fishing Gear", "Hiking Trails Nearby", "Hot Tub", "Sauna", "Game Room"],
-  "booking_eyebrow":   "Your Lakeside Escape Awaits",
-  "booking_title":     "Ready to Make",
-  "booking_title_em":  "Memories?",
-  "booking_body":      "Check availability and reserve your stay at Pocono Lake Haven. Dates fill up fast — secure your retreat before they're gone.",
+  "amenities_sleeping": [
+    "5 Bedrooms",
+    "King & Queen Beds",
+    "3 Full Bathrooms",
+    "Sleeps up to 14",
+    "Smart TVs",
+    "High-Speed WiFi"
+  ],
+  "amenities_kitchen": [
+    "Full Chef's Kitchen",
+    "Coffee Station",
+    "Dining for 10",
+    "Gas BBQ Grill",
+    "Cookware & Dishes",
+    "Outdoor Dining"
+  ],
+  "amenities_outdoor": [
+    "Private Dock",
+    "4 Kayaks",
+    "Lakeside Fire Pit",
+    "Hiking Trails Nearby",
+    "Hot Tub",
+    "Sauna",
+    "Game Room"
+  ],
+  "booking_eyebrow": "Your Lakeside Escape Awaits",
+  "booking_title": "Ready to Make",
+  "booking_title_em": "Memories?",
+  "booking_body": "Check availability and reserve your stay at Pocono Lake Haven. Dates fill up fast — secure your retreat before they're gone.",
   "gallery": [
-    { "src": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80", "alt": "Stunning mountain lake" },
-    { "src": "https://images.unsplash.com/photo-1472745942893-4b9f730c7668?auto=format&fit=crop&w=800&q=80",  "alt": "Morning on the water" },
-    { "src": "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80",  "alt": "Forest path in autumn" },
-    { "src": "https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?auto=format&fit=crop&w=800&q=80",  "alt": "Cozy fireplace" },
-    { "src": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",  "alt": "Open living space" },
-    { "src": "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=800&q=80",  "alt": "Stars over the lake" }
+    {
+      "src": "https://drive.google.com/drive/u/0/folders/1ml3o6IXrVJD3prJ8b33VFhlIyzwtWFGT",
+      "alt": "Sauna and Hottub"
+    },
+    {
+      "src": "https://drive.google.com/drive/u/0/my-drive",
+      "alt": "Enjoy the Lakeview from the firepit"
+    },
+    {
+      "src": "https://drive.google.com/drive/u/0/my-drive",
+      "alt": "Backyard on the lake"
+    }
   ],
-  "footer_tagline":   "Pocono Mountains, Pennsylvania",
+  "footer_tagline": "Pocono Mountains, Pennsylvania",
   "footer_copyright": "© 2025 Pocono Lake Haven. All rights reserved."
 }
